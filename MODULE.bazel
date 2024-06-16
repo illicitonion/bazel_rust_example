@@ -60,6 +60,16 @@ rust.toolchain(
 use_repo(rust, "rust_toolchains")
 register_toolchains("@rust_toolchains//:all")
 
+# Optional:
+protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
+protoc.toolchain(
+    # Creates a repository to satisfy well-known-types dependencies such as
+    # deps=["@com_google_protobuf//:any_proto"]
+    google_protobuf = "com_google_protobuf",
+    # Pin to any version of protoc
+    version = "v26.0",
+)
+
 # Rust protobuf toolchain
 register_toolchains("@rules_rust//proto/protobuf:default-proto-toolchain")
 
